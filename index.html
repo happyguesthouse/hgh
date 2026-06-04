@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Guest House – HGH | Abomey-Calavi, Bénin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================
+       CSS VARIABLES & RESET
+    ============================ */
+    :root {
+      --orange: #E2621B;
+      --orange-light: #F47B35;
+      --orange-dark: #B84D10;
+      --white: #FFFFFF;
+      --green: #1A7A3C;
+      --green-light: #2AAD5A;
+      --green-dark: #0F5228;
+      --black: #0D0D0D;
+      --grey-dark: #1A1A1A;
+      --grey-mid: #333333;
+      --grey-light: #F5F3EE;
+      --cream: #FDF8F3;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Outfit', sans-serif;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ============================
+       CUSTOM SCROLLBAR
+    ============================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ============================
+       LOADER
+    ============================ */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 24px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .loader-logo span:nth-child(1) { color: var(--orange); }
+    .loader-logo span:nth-child(2) { color: var(--white); }
+    .loader-logo span:nth-child(3) { color: var(--green); }
+    .loader-bar {
+      width: 200px; height: 2px;
+      background: var(--grey-mid);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--white), var(--green));
+      animation: loadFill 1.8s ease forwards;
+    }
+    @keyframes loadFill {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    /* ============================
+       NAVIGATION
+    ============================ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 clamp(20px, 5vw, 80px);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 80px;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(13,13,13,0.97);
+      box-shadow: 0 2px 40px rgba(226,98,27,0.15);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-badge {
+      width: 46px; height: 46px;
+      background: var(--orange);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1.1rem;
+      color: white;
+      letter-spacing: 0.05em;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-logo-badge::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    .nav-logo:hover .nav-logo-badge::after { left: 100%; }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+    }
+    .nav-logo-text span { display: block; font-size: 0.75rem; font-weight: 300; color: var(--orange-light); letter-spacing: 0.15em; text-transform: uppercase; }
+    .nav-links {
+      display: flex; align-items: center; gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--orange);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--orange-light); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--orange);
+      color: white !important;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      transition: background var(--transition), transform var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--orange-dark) !important; transform: translateY(-2px); }
+    .nav-cta::after { display: none !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 26px; height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed; top: 80px; left: 0; right: 0;
+      background: rgba(13,13,13,0.98);
+      backdrop-filter: blur(16px);
+      padding: 30px;
+      display: flex; flex-direction: column; gap: 20px;
+      transform: translateY(-120%);
+      transition: transform var(--transition);
+      z-index: 99;
+      border-bottom: 1px solid rgba(226,98,27,0.2);
+    }
+    .mobile-menu.open { transform: translateY(0); }
+    .mobile-menu a {
+      text-decoration: none; color: rgba(255,255,255,0.85);
+      font-size: 1.1rem; font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--orange-light); }
+
+    /* ============================
+       HERO SECTION
+    ============================ */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+      background: var(--black);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: 
+        linear-gradient(135deg, rgba(226,98,27,0.12) 0%, transparent 50%, rgba(26,122,60,0.08) 100%),
+        radial-gradient(ellipse at 30% 50%, rgba(226,98,27,0.06) 0%, transparent 60%);
+    }
+    /* Animated grid */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove {
+      from { transform: translateY(0); }
+      to { transform: translateY(60px); }
+    }
+    /* Floating particles */
+    .particles {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-20px) scale(1); opacity: 0; }
+    }
+    /* Tricolor accent bars */
+    .tricolor-bar {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 6px;
+      display: flex; flex-direction: column;
+    }
+    .tricolor-bar span {
+      flex: 1;
+    }
+    .tricolor-bar span:nth-child(1) { background: var(--orange); }
+    .tricolor-bar span:nth-child(2) { background: var(--white); }
+    .tricolor-bar span:nth-child(3) { background: var(--green); }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 clamp(30px, 8vw, 140px);
+      max-width: 900px;
+      padding-top: 100px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.8s ease 2s forwards;
+    }
+    .hero-eyebrow-line {
+      width: 40px; height: 1px;
+      background: var(--orange);
+    }
+    .hero-eyebrow-text {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--orange-light);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: white;
+      margin-bottom: 12px;
+      opacity: 0; animation: fadeUp 0.8s ease 2.2s forwards;
+    }
+    .hero-title .italic {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--orange-light);
+    }
+    .hero-title-line2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 0.8s ease 2.4s forwards;
+    }
+    .hero-desc {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      margin-bottom: 50px;
+      opacity: 0; animation: fadeUp 0.8s ease 2.6s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s ease 2.8s forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--orange);
+      color: white;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600; font-size: 0.9rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: all var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(226,98,27,0.4); }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: transparent;
+      color: white;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500; font-size: 0.9rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all var(--transition);
+    }
+    .btn-secondary:hover { border-color: var(--green-light); color: var(--green-light); transform: translateY(-3px); }
+
+    /* Stats strip */
+    .hero-stats {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      opacity: 0; animation: fadeUp 0.8s ease 3.2s forwards;
+    }
+    .hero-stat {
+      flex: 1;
+      padding: 24px 30px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 700;
+      color: var(--orange-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute; right: 50px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      opacity: 0; animation: fadeIn 1s ease 3.5s forwards;
+    }
+    .scroll-indicator-line {
+      width: 1px; height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: 0.5; }
+      50% { transform: scaleY(1.2); opacity: 1; }
+    }
+    .scroll-indicator-text {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      writing-mode: vertical-rl;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ============================
+       SECTION GÉNÉRIQUE
+    ============================ */
+    section { position: relative; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-label-line {
+      width: 30px; height: 1px;
+      background: var(--orange);
+    }
+    .section-label-text {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--orange);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .section-title .accent { color: var(--orange); font-style: italic; }
+    .section-title .green-accent { color: var(--green); font-style: italic; }
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ============================
+       ABOUT SECTION
+    ============================ */
+    .about {
+      background: var(--black);
+      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-container {
+      position: relative; border-radius: 16px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .about-img-container img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.8) saturate(1.1);
+      transition: transform 0.8s ease;
+    }
+    .about-img-container:hover img { transform: scale(1.05); }
+    .about-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(226,98,27,0.2) 0%, rgba(0,0,0,0.3) 100%);
+    }
+    .about-badge {
+      position: absolute; bottom: -24px; right: -24px;
+      width: 120px; height: 120px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      border: 4px solid var(--black);
+      animation: rotateBadge 20s linear infinite;
+    }
+    @keyframes rotateBadge {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .about-badge svg {
+      position: absolute;
+      animation: rotateBadge 20s linear infinite reverse;
+    }
+    .about-badge-inner {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 700;
+      color: white; line-height: 1;
+      animation: rotateBadge 20s linear infinite reverse;
+    }
+    .about-badge-sub {
+      font-size: 0.55rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      animation: rotateBadge 20s linear infinite reverse;
+    }
+    /* Tricolor stripe on image */
+    .about-tricolor {
+      position: absolute; top: 20px; left: -12px;
+      width: 6px; height: 80px;
+      display: flex; flex-direction: column; border-radius: 3px; overflow: hidden;
+    }
+    .about-tricolor span { flex: 1; }
+    .about-tricolor span:nth-child(1) { background: var(--orange); }
+    .about-tricolor span:nth-child(2) { background: white; }
+    .about-tricolor span:nth-child(3) { background: var(--green); }
+
+    .about-text { color: white; }
+    .about-text .section-title { color: white; margin-bottom: 24px; }
+    .about-text p {
+      color: rgba(255,255,255,0.6);
+      line-height: 1.9;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    .about-features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-top: 36px;
+    }
+    .about-feature {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .about-feature-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .about-feature-dot.orange { background: var(--orange); }
+    .about-feature-dot.green { background: var(--green-light); }
+    .about-feature span {
+      font-size: 0.85rem; font-weight: 500;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ============================
+       SERVICES SECTION
+    ============================ */
+    .services {
+      background: var(--cream);
+      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+    }
+    .services-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 64px;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .services-header .section-title { color: var(--black); }
+    .services-header p {
+      max-width: 360px;
+      font-size: 0.95rem; line-height: 1.7;
+      color: #666;
+      text-align: right;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px 32px;
+      position: relative; overflow: hidden;
+      transition: all var(--transition);
+      cursor: default;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 4px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.12); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card.featured {
+      background: var(--orange);
+      color: white;
+    }
+    .service-card.featured .service-number { color: rgba(255,255,255,0.2); }
+    .service-card.featured .service-title { color: white; }
+    .service-card.featured .service-desc { color: rgba(255,255,255,0.8); }
+    .service-card.featured::before { background: rgba(255,255,255,0.3); }
+    .service-card.green-card {
+      background: var(--green);
+      color: white;
+    }
+    .service-card.green-card .service-number { color: rgba(255,255,255,0.2); }
+    .service-card.green-card .service-title { color: white; }
+    .service-card.green-card .service-desc { color: rgba(255,255,255,0.8); }
+    .service-card.green-card::before { background: rgba(255,255,255,0.3); }
+    .service-number {
+      font-family: var(--font-display);
+      font-size: 3rem; font-weight: 700;
+      color: rgba(0,0,0,0.06);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .service-icon {
+      font-size: 2.2rem; margin-bottom: 16px;
+      display: block;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+    .service-desc {
+      font-size: 0.9rem; line-height: 1.7;
+      color: #666;
+    }
+
+    /* ============================
+       GALLERY SECTION (mosaic)
+    ============================ */
+    .gallery {
+      background: var(--grey-dark);
+      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+    }
+    .gallery-header { margin-bottom: 50px; }
+    .gallery-header .section-title { color: white; }
+    .gallery-mosaic {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 240px 240px;
+      gap: 12px;
+    }
+    .gallery-item {
+      border-radius: 12px; overflow: hidden;
+      position: relative; cursor: pointer;
+    }
+    .gallery-item:nth-child(1) {
+      grid-column: 1 / 3; grid-row: 1 / 2;
+    }
+    .gallery-item:nth-child(2) {
+      grid-column: 3; grid-row: 1;
+    }
+    .gallery-item:nth-child(3) {
+      grid-column: 4; grid-row: 1;
+    }
+    .gallery-item:nth-child(4) {
+      grid-column: 1; grid-row: 2;
+    }
+    .gallery-item:nth-child(5) {
+      grid-column: 2 / 4; grid-row: 2;
+    }
+    .gallery-item:nth-child(6) {
+      grid-column: 4; grid-row: 2;
+    }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 8px;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover .gallery-placeholder { transform: scale(1.05); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0; transition: opacity var(--transition);
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: white; font-weight: 600; font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    /* Colored placeholders */
+    .gal-1 { background: linear-gradient(135deg, #2C4A8C, #1a3060); }
+    .gal-2 { background: linear-gradient(135deg, var(--orange-dark), var(--orange)); }
+    .gal-3 { background: linear-gradient(135deg, var(--green-dark), var(--green)); }
+    .gal-4 { background: linear-gradient(135deg, #5C3A1E, #8B5E3C); }
+    .gal-5 { background: linear-gradient(135deg, #1A4A2E, #2D7A4F); }
+    .gal-6 { background: linear-gradient(135deg, #3A1A2E, #6B2D4F); }
+    .gallery-icon { font-size: 2.5rem; opacity: 0.5; }
+    .gallery-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+
+    /* ============================
+       TARIFS SECTION
+    ============================ */
+    .tarifs {
+      background: var(--cream);
+      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+      text-align: center;
+    }
+    .tarifs .section-title { color: var(--black); margin-bottom: 16px; }
+    .tarifs > p {
+      color: #888; font-size: 1rem; margin-bottom: 60px;
+    }
+    .tarifs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; max-width: 960px; margin: 0 auto;
+    }
+    .tarif-card {
+      background: white;
+      border-radius: 20px;
+      padding: 48px 36px;
+      border: 2px solid transparent;
+      transition: all var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .tarif-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .tarif-card:nth-child(1)::after { background: var(--orange); }
+    .tarif-card:nth-child(2)::after { background: var(--green); }
+    .tarif-card:nth-child(3)::after { background: var(--grey-mid); }
+    .tarif-card.popular {
+      border-color: var(--green);
+      transform: scale(1.04);
+      box-shadow: 0 20px 60px rgba(26,122,60,0.15);
+    }
+    .tarif-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: var(--green);
+      color: white; font-size: 0.65rem;
+      font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+    }
+    .tarif-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .tarif-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 700;
+      color: var(--black); margin-bottom: 8px;
+    }
+    .tarif-price {
+      font-family: var(--font-display);
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--orange); margin-bottom: 4px; line-height: 1;
+    }
+    .tarif-price span { font-size: 1rem; font-weight: 400; color: #999; }
+    .tarif-per { font-size: 0.8rem; color: #aaa; margin-bottom: 28px; }
+    .tarif-features { list-style: none; text-align: left; }
+    .tarif-features li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; font-size: 0.88rem; color: #555;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    .tarif-features li:last-child { border-bottom: none; }
+    .check { color: var(--green); font-weight: 700; }
+    .tarif-cta {
+      display: block; margin-top: 32px;
+      padding: 14px; border-radius: 10px;
+      text-decoration: none; font-weight: 600;
+      font-size: 0.88rem; letter-spacing: 0.05em; text-transform: uppercase;
+      transition: all var(--transition);
+    }
+    .tarif-cta.orange { background: var(--orange); color: white; }
+    .tarif-cta.green { background: var(--green); color: white; }
+    .tarif-cta.grey { background: var(--grey-dark); color: white; }
+    .tarif-cta:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    /* ============================
+       LOCALISATION SECTION
+    ============================ */
+    .localisation {
+      background: var(--black);
+      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .localisation-text { color: white; }
+    .localisation-text .section-title { color: white; margin-bottom: 24px; }
+    .localisation-text p { color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 36px; }
+    .location-info {
+      display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px;
+    }
+    .location-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px; border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color var(--transition);
+    }
+    .location-item:hover { border-color: var(--orange); }
+    .location-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .loc-orange { background: rgba(226,98,27,0.15); }
+    .loc-green { background: rgba(26,122,60,0.15); }
+    .location-item h4 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .location-item p { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.5; margin: 0; }
+
+    .map-container {
+      border-radius: 20px; overflow: hidden;
+      aspect-ratio: 1;
+      background: #1a1a2e;
+      position: relative;
+      border: 2px solid rgba(255,255,255,0.06);
+    }
+    .map-embed {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+      background: linear-gradient(135deg, #0d1b2a, #1b2838);
+      position: relative;
+    }
+    /* Fake map dots */
+    .map-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(226,98,27,0.3);
+    }
+    .map-pin {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      display: flex; flex-direction: column; align-items: center;
+      animation: pinBounce 2s ease-in-out infinite;
+    }
+    @keyframes pinBounce {
+      0%, 100% { transform: translate(-50%, -60%); }
+      50% { transform: translate(-50%, -70%); }
+    }
+    .map-pin-icon { font-size: 3rem; filter: drop-shadow(0 4px 12px rgba(226,98,27,0.6)); }
+    .map-pin-label {
+      background: var(--orange);
+      color: white; padding: 8px 16px; border-radius: 8px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+      white-space: nowrap; margin-top: 8px;
+      box-shadow: 0 4px 16px rgba(226,98,27,0.4);
+    }
+    .map-ring {
+      position: absolute; top: 50%; left: 50%;
+      border-radius: 50%;
+      border: 2px solid rgba(226,98,27,0.2);
+      animation: ringExpand 3s ease-out infinite;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes ringExpand {
+      0% { width: 20px; height: 20px; opacity: 0.8; }
+      100% { width: 200px; height: 200px; opacity: 0; }
+    }
+    .map-ring:nth-child(2) { animation-delay: 1s; }
+    .map-ring:nth-child(3) { animation-delay: 2s; }
+    .map-grid-overlay {
+      position: absolute; inset: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .btn-maps {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green);
+      color: white; padding: 14px 28px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: all var(--transition);
+    }
+    .btn-maps:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+    /* ============================
+       CONTACT SECTION
+    ============================ */
+    .contact {
+      background: var(--grey-light);
+      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+      display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: start;
+    }
+    .contact-info .section-title { color: var(--black); margin-bottom: 24px; }
+    .contact-info p { color: #666; line-height: 1.8; margin-bottom: 40px; }
+    .contact-cards { display: flex; flex-direction: column; gap: 16px; }
+    .contact-card {
+      display: flex; align-items: center; gap: 20px;
+      background: white; border-radius: 14px; padding: 20px 24px;
+      text-decoration: none; color: inherit;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all var(--transition);
+    }
+    .contact-card:hover { transform: translateX(8px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-color: var(--orange); }
+    .contact-card-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .cc-orange { background: rgba(226,98,27,0.1); }
+    .cc-green { background: rgba(26,122,60,0.1); }
+    .cc-blue { background: rgba(29,161,242,0.1); }
+    .contact-card h4 { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 4px; }
+    .contact-card p { font-size: 0.95rem; font-weight: 600; color: var(--black); margin: 0; }
+
+    /* Contact form */
+    .contact-form-wrapper {
+      background: white; border-radius: 20px; padding: 48px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    }
+    .form-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--black); margin-bottom: 8px;
+    }
+    .form-subtitle { color: #888; font-size: 0.9rem; margin-bottom: 36px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-bottom: 8px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--black);
+      background: var(--grey-light);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--orange); background: white; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--orange);
+      color: white; border: none;
+      border-radius: 10px; cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.95rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all var(--transition);
+    }
+    .form-submit:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(226,98,27,0.3); }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      background: var(--black);
+      padding: 60px clamp(30px, 8vw, 120px) 30px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 60px; padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-brand {}
+    .footer-logo {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .footer-logo-badge {
+      width: 44px; height: 44px;
+      background: var(--orange); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 1rem; color: white;
+    }
+    .footer-logo-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem; font-weight: 600; color: white;
+    }
+    .footer-logo-name span { display: block; font-size: 0.7rem; font-weight: 300; color: var(--orange-light); letter-spacing: 0.15em; text-transform: uppercase; }
+    .footer-brand p { color: rgba(255,255,255,0.4); font-size: 0.88rem; line-height: 1.7; margin-bottom: 24px; }
+    .footer-flag {
+      display: flex; height: 5px; width: 80px; border-radius: 3px; overflow: hidden;
+    }
+    .footer-flag span { flex: 1; }
+    .footer-flag span:nth-child(1) { background: var(--orange); }
+    .footer-flag span:nth-child(2) { background: white; }
+    .footer-flag span:nth-child(3) { background: var(--green); }
+    .footer-social {
+      display: flex; gap: 12px; margin-top: 24px;
+    }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.5);
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .social-btn:hover { background: var(--orange); color: white; transform: translateY(-3px); }
+    .footer-col h5 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.88rem; transition: color var(--transition); }
+    .footer-col ul li a:hover { color: var(--orange-light); }
+    .footer-col address { font-style: normal; color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.8; }
+    .footer-col address a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color var(--transition); }
+    .footer-col address a:hover { color: var(--orange-light); }
+    .footer-bottom {
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
+    .footer-bottom p span { color: var(--orange); }
+    .footer-tricolor-bottom {
+      display: flex; gap: 6px;
+    }
+    .footer-tricolor-bottom span {
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .footer-tricolor-bottom span:nth-child(1) { background: var(--orange); }
+    .footer-tricolor-bottom span:nth-child(2) { background: white; }
+    .footer-tricolor-bottom span:nth-child(3) { background: var(--green); }
+
+    /* ============================
+       FLOATING WHATSAPP BUTTON
+    ============================ */
+    .whatsapp-float {
+      position: fixed; bottom: 30px; right: 30px; z-index: 200;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      animation: pulse 2.5s ease-in-out infinite;
+      transition: transform var(--transition);
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 6px 40px rgba(37,211,102,0.7); }
+    }
+    .whatsapp-tooltip {
+      position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+      background: var(--black); color: white; padding: 8px 14px;
+      border-radius: 8px; font-size: 0.8rem; font-weight: 600;
+      white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity var(--transition);
+    }
+    .whatsapp-float:hover .whatsapp-tooltip { opacity: 1; }
+
+    /* ============================
+       BACK TO TOP
+    ============================ */
+    .back-to-top {
+      position: fixed; bottom: 100px; right: 30px; z-index: 200;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: white; text-decoration: none; font-size: 1.1rem;
+      opacity: 0; pointer-events: none; transition: all var(--transition);
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: all; }
+    .back-to-top:hover { background: var(--orange); border-color: var(--orange); transform: translateY(-3px); }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 1024px) {
+      .about { grid-template-columns: 1fr; gap: 50px; }
+      .localisation { grid-template-columns: 1fr; gap: 50px; }
+      .contact { grid-template-columns: 1fr; gap: 50px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .tarifs-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .tarif-card.popular { transform: scale(1); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .gallery-mosaic { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .gallery-item:nth-child(1),
+      .gallery-item:nth-child(2),
+      .gallery-item:nth-child(3),
+      .gallery-item:nth-child(4),
+      .gallery-item:nth-child(5),
+      .gallery-item:nth-child(6) { grid-column: auto; grid-row: auto; height: 200px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { display: none; }
+      .scroll-indicator { display: none; }
+      .about-features { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .services-header { flex-direction: column; }
+      .services-header p { text-align: left; }
+      .footer-top { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .gallery-mosaic { grid-template-columns: 1fr 1fr; }
+      .about-badge { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content { padding-top: 80px; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { justify-content: center; }
+      .gallery-mosaic { grid-template-columns: 1fr; }
+      .contact-form-wrapper { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">
+      <span>H</span><span>G</span><span>H</span>
+    </div>
+    <div class="loader-bar">
+      <div class="loader-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-badge">HGH</div>
+      <div class="nav-logo-text">
+        Happy Guest House
+        <span>Abomey-Calavi · Bénin</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Galerie</a></li>
+      <li><a href="#localisation">Localisation</a></li>
+      <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">À propos</a>
+    <a href="#services" onclick="toggleMenu()">Nos services</a>
+    <a href="#gallery" onclick="toggleMenu()">Galerie</a>
+    <a href="#localisation" onclick="toggleMenu()">Localisation</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="tricolor-bar">
+      <span></span><span></span><span></span>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Votre maison d'hôtes à Abomey-Calavi</span>
+      </div>
+      <h1 class="hero-title">
+        Happy <span class="italic">Guest</span>
+      </h1>
+      <div class="hero-title-line2">House</div>
+      <p class="hero-desc">
+        Un havre de paix et de confort au cœur de Semè, Abomey-Calavi. 
+        Découvrez une expérience inoubliable alliant élégance, hospitalité 
+        et services d'exception.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">
+          ✦ Découvrir nos services
+        </a>
+        <a href="#contact" class="btn-secondary">
+          Réserver maintenant →
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">6+</div>
+        <div class="hero-stat-label">Services Premium</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">24h</div>
+        <div class="hero-stat-label">Accueil continu</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">★★★</div>
+        <div class="hero-stat-label">Qualité garantie</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Satisfaction client</div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-indicator-line"></div>
+      <span class="scroll-indicator-text">Découvrir</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-visual reveal">
+      <div class="about-tricolor">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="about-img-container">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a3a5c,#0d2035);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+          <span style="font-size:5rem;">🏡</span>
+          <span style="font-size:0.8rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Happy Guest House</span>
+        </div>
+        <div class="about-img-overlay"></div>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-inner">HGH</div>
+        <div class="about-badge-sub">Bénin</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label reveal reveal-delay-1">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">À propos de nous</span>
+      </div>
+      <h2 class="section-title reveal reveal-delay-2">
+        Bienvenue dans votre <span class="accent">espace</span> de sérénité
+      </h2>
+      <p class="reveal reveal-delay-3">
+        Nichée dans le quartier de Semè à Abomey-Calavi, la <strong>Happy Guest House</strong> 
+        vous offre bien plus qu'un simple hébergement. C'est un véritable chez-vous, 
+        pensé pour votre confort et votre bien-être.
+      </p>
+      <p class="reveal reveal-delay-4">
+        Que vous soyez en voyage d'affaires, en famille ou entre amis, nos espaces 
+        sont conçus pour répondre à toutes vos attentes avec une touche de chaleur 
+        africaine et d'élégance moderne.
+      </p>
+      <div class="about-features reveal reveal-delay-5">
+        <div class="about-feature">
+          <div class="about-feature-dot orange"></div>
+          <span>Chambres climatisées</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-dot green"></div>
+          <span>WiFi haut débit</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-dot orange"></div>
+          <span>Piscine privée</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-dot green"></div>
+          <span>Parking sécurisé</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-dot orange"></div>
+          <span>Accueil 24h/24</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-dot green"></div>
+          <span>Sécurité garantie</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <div>
+        <div class="section-label reveal">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">Ce que nous offrons</span>
+        </div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Nos <span class="accent">Services</span><br />d'exception
+        </h2>
+      </div>
+      <p class="reveal reveal-delay-2">
+        Chaque service est pensé pour vous offrir une expérience unique et mémorable lors de votre séjour.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card featured reveal reveal-delay-1">
+        <div class="service-number">01</div>
+        <span class="service-icon">🏊</span>
+        <h3 class="service-title">Piscine</h3>
+        <p class="service-desc">Profitez de notre magnifique piscine pour vous détendre et vous ressourcer sous le soleil béninois dans un cadre exceptionnel.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-number">02</div>
+        <span class="service-icon">🛏️</span>
+        <h3 class="service-title">Chambres d'hôtes</h3>
+        <p class="service-desc">Des chambres élégantes et confortables, équipées de tout le nécessaire pour un séjour parfait. Air conditionné, literie premium inclus.</p>
+      </div>
+      <div class="service-card green-card reveal reveal-delay-3">
+        <div class="service-number">03</div>
+        <span class="service-icon">🏠</span>
+        <h3 class="service-title">Location Privée</h3>
+        <p class="service-desc">Louez notre espace en exclusivité pour vos séjours privés, retraites ou événements personnels dans un cadre intimiste et sécurisé.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-4">
+        <div class="service-number">04</div>
+        <span class="service-icon">🍹</span>
+        <h3 class="service-title">Bar</h3>
+        <p class="service-desc">Notre bar vous propose une sélection de boissons locales et internationales, cocktails raffinés et ambiance décontractée.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-5">
+        <div class="service-number">05</div>
+        <span class="service-icon">🍽️</span>
+        <h3 class="service-title">Restaurant</h3>
+        <p class="service-desc">Savourez une cuisine authentique mêlant saveurs locales et influences internationales, préparée avec soin par notre équipe.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-6">
+        <div class="service-number">06</div>
+        <span class="service-icon">🎉</span>
+        <h3 class="service-title">Espace Événementiel</h3>
+        <p class="service-desc">Organisez vos réceptions, anniversaires, séminaires et célébrations dans notre espace modulable avec une capacité adaptée à vos besoins.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-header">
+      <div class="section-label reveal">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">En images</span>
+      </div>
+      <h2 class="section-title reveal reveal-delay-1" style="color:white;">
+        Découvrez notre <span class="accent">cadre</span>
+      </h2>
+    </div>
+    <div class="gallery-mosaic">
+      <div class="gallery-item reveal">
+        <div class="gallery-placeholder gal-1">
+          <span class="gallery-icon">🏡</span>
+          <span class="gallery-label">Vue extérieure</span>
+        </div>
+        <div class="gallery-overlay"><span>La villa</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1">
+        <div class="gallery-placeholder gal-2">
+          <span class="gallery-icon">🏊</span>
+          <span class="gallery-label">Piscine</span>
+        </div>
+        <div class="gallery-overlay"><span>La piscine</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <div class="gallery-placeholder gal-3">
+          <span class="gallery-icon">🛏️</span>
+          <span class="gallery-label">Chambres</span>
+        </div>
+        <div class="gallery-overlay"><span>Nos chambres</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <div class="gallery-placeholder gal-4">
+          <span class="gallery-icon">🍹</span>
+          <span class="gallery-label">Bar</span>
+        </div>
+        <div class="gallery-overlay"><span>Le bar</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-4">
+        <div class="gallery-placeholder gal-5">
+          <span class="gallery-icon">🍽️</span>
+          <span class="gallery-label">Restaurant</span>
+        </div>
+        <div class="gallery-overlay"><span>Le restaurant</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-5">
+        <div class="gallery-placeholder gal-6">
+          <span class="gallery-icon">🎉</span>
+          <span class="gallery-label">Événements</span>
+        </div>
+        <div class="gallery-overlay"><span>Espace événementiel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section class="tarifs" id="tarifs">
+    <div class="section-label reveal" style="justify-content:center;">
+      <div class="section-label-line"></div>
+      <span class="section-label-text">Nos offres</span>
+      <div class="section-label-line"></div>
+    </div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Formules & <span class="green-accent">Tarifs</span>
+    </h2>
+    <p class="reveal reveal-delay-2">Contactez-nous pour un devis personnalisé selon vos besoins</p>
+    <div class="tarifs-grid">
+      <div class="tarif-card reveal reveal-delay-1">
+        <div class="tarif-icon">🌙</div>
+        <div class="tarif-name">Chambre Standard</div>
+        <div class="tarif-price">Sur <span>demande</span></div>
+        <div class="tarif-per">par nuit · contact requis</div>
+        <ul class="tarif-features">
+          <li><span class="check">✓</span> Chambre climatisée</li>
+          <li><span class="check">✓</span> Petit déjeuner inclus</li>
+          <li><span class="check">✓</span> Accès piscine</li>
+          <li><span class="check">✓</span> WiFi gratuit</li>
+          <li><span class="check">✓</span> Parking sécurisé</li>
+        </ul>
+        <a href="#contact" class="tarif-cta orange">Réserver</a>
+      </div>
+      <div class="tarif-card popular reveal reveal-delay-2">
+        <div class="tarif-badge">Populaire</div>
+        <div class="tarif-icon">⭐</div>
+        <div class="tarif-name">Séjour Complet</div>
+        <div class="tarif-price">Sur <span>demande</span></div>
+        <div class="tarif-per">tout inclus · formule premium</div>
+        <ul class="tarif-features">
+          <li><span class="check">✓</span> Chambre premium</li>
+          <li><span class="check">✓</span> Pension complète</li>
+          <li><span class="check">✓</span> Bar & Restaurant</li>
+          <li><span class="check">✓</span> Piscine privée</li>
+          <li><span class="check">✓</span> Accueil VIP 24h</li>
+        </ul>
+        <a href="#contact" class="tarif-cta green">Réserver</a>
+      </div>
+      <div class="tarif-card reveal reveal-delay-3">
+        <div class="tarif-icon">🎉</div>
+        <div class="tarif-name">Événement Privé</div>
+        <div class="tarif-price">Devis <span>gratuit</span></div>
+        <div class="tarif-per">sur mesure · selon capacité</div>
+        <ul class="tarif-features">
+          <li><span class="check">✓</span> Espace événementiel</li>
+          <li><span class="check">✓</span> Catering sur mesure</li>
+          <li><span class="check">✓</span> Décoration incluse</li>
+          <li><span class="check">✓</span> Location privée</li>
+          <li><span class="check">✓</span> Coordination event</li>
+        </ul>
+        <a href="#contact" class="tarif-cta grey">Obtenir un devis</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCALISATION -->
+  <section class="localisation" id="localisation">
+    <div class="localisation-text">
+      <div class="section-label reveal">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Où nous trouver</span>
+      </div>
+      <h2 class="section-title reveal reveal-delay-1">
+        Notre <span class="accent">Localisation</span>
+      </h2>
+      <p class="reveal reveal-delay-2">
+        Idéalement situés à Semè, Abomey-Calavi, nous sommes facilement accessibles 
+        depuis Cotonou et les principaux axes de la région.
+      </p>
+      <div class="location-info">
+        <div class="location-item reveal reveal-delay-3">
+          <div class="location-icon loc-orange">📍</div>
+          <div>
+            <h4>Adresse</h4>
+            <p>Calavi, Semè — 3è von à gauche après fin pavé CEB en allant à la FECECAM</p>
+          </div>
+        </div>
+        <div class="location-item reveal reveal-delay-4">
+          <div class="location-icon loc-green">🌍</div>
+          <div>
+            <h4>Région</h4>
+            <p>Abomey-Calavi · Atlantique · République du Bénin</p>
+          </div>
+        </div>
+      </div>
+      <a href="https://maps.app.goo.gl/?q=Abomey-Calavi+Seme+Benin" target="_blank" class="btn-maps reveal reveal-delay-5">
+        📍 Voir sur Google Maps
+      </a>
+    </div>
+    <div class="map-container reveal reveal-delay-2">
+      <div class="map-embed">
+        <div class="map-grid-overlay"></div>
+        <div class="map-ring"></div>
+        <div class="map-ring"></div>
+        <div class="map-ring"></div>
+        <div class="map-pin">
+          <div class="map-pin-icon">📍</div>
+          <div class="map-pin-label">Happy Guest House · HGH</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-info">
+      <div class="section-label reveal">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Contactez-nous</span>
+      </div>
+      <h2 class="section-title reveal reveal-delay-1">
+        Prenons <span class="accent">contact</span>
+      </h2>
+      <p class="reveal reveal-delay-2">
+        Notre équipe est disponible pour répondre à toutes vos questions 
+        et vous aider à planifier votre séjour idéal à la Happy Guest House.
+      </p>
+      <div class="contact-cards">
+        <a href="tel:0022961072380" class="contact-card reveal reveal-delay-3">
+          <div class="contact-card-icon cc-orange">📞</div>
+          <div>
+            <h4>Téléphone</h4>
+            <p>00229 61 07 23 80</p>
+          </div>
+        </a>
+        <a href="mailto:hightgrouphappy@gmail.com" class="contact-card reveal reveal-delay-4">
+          <div class="contact-card-icon cc-green">✉️</div>
+          <div>
+            <h4>Email</h4>
+            <p>hightgrouphappy@gmail.com</p>
+          </div>
+        </a>
+        <a href="https://web.facebook.com/profile.php?id=Happy-Guest-House-HGH" target="_blank" class="contact-card reveal reveal-delay-5">
+          <div class="contact-card-icon cc-blue">📘</div>
+          <div>
+            <h4>Facebook</h4>
+            <p>Happy Guest House-HGH</p>
+          </div>
+        </a>
+        <a href="https://wa.me/22961072380" target="_blank" class="contact-card reveal">
+          <div class="contact-card-icon" style="background:rgba(37,211,102,0.1);">💬</div>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>00229 61 07 23 80</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-wrapper reveal reveal-delay-2">
+      <h3 class="form-title">Envoyer un message</h3>
+      <p class="form-subtitle">Nous vous répondrons dans les plus brefs délais.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prénom</label>
+          <input type="text" placeholder="Votre prénom" />
+        </div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" placeholder="Votre nom" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="votre@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="+229 XX XX XX XX" />
+      </div>
+      <div class="form-group">
+        <label>Type de demande</label>
+        <select>
+          <option value="">Sélectionner...</option>
+          <option>Réservation chambre</option>
+          <option>Location privée</option>
+          <option>Événement / Réception</option>
+          <option>Renseignement général</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Décrivez votre demande, vos dates de séjour, le nombre de personnes..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit()">✦ Envoyer ma demande</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-badge">HGH</div>
+          <div class="footer-logo-name">
+            Happy Guest House
+            <span>Abomey-Calavi · Bénin</span>
+          </div>
+        </div>
+        <p>Votre maison d'hôtes de référence à Semè, Abomey-Calavi. Confort, élégance et hospitalité béninoise au rendez-vous.</p>
+        <div class="footer-flag">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="footer-social">
+          <a href="https://web.facebook.com/profile.php?id=Happy-Guest-House-HGH" target="_blank" class="social-btn">f</a>
+          <a href="https://wa.me/22961072380" target="_blank" class="social-btn">w</a>
+          <a href="mailto:hightgrouphappy@gmail.com" class="social-btn">@</a>
+          <a href="tel:0022961072380" class="social-btn">☎</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#services">Nos services</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">🏊 Piscine</a></li>
+          <li><a href="#services">🛏️ Chambres d'hôtes</a></li>
+          <li><a href="#services">🏠 Location privée</a></li>
+          <li><a href="#services">🍹 Bar</a></li>
+          <li><a href="#services">🍽️ Restaurant</a></li>
+          <li><a href="#services">🎉 Espace Événementiel</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <address>
+          <p>Calavi, Semè<br/>Abomey-Calavi<br/>République du Bénin</p>
+          <br/>
+          <a href="tel:0022961072380">📞 00229 61 07 23 80</a><br/><br/>
+          <a href="mailto:hightgrouphappy@gmail.com">✉️ hightgrouphappy@gmail.com</a>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 <span>Happy Guest House – HGH</span>. Tous droits réservés.</p>
+      <div class="footer-tricolor-bottom">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/22961072380" target="_blank" class="whatsapp-float">
+    💬
+    <span class="whatsapp-tooltip">Écrire sur WhatsApp</span>
+  </a>
+
+  <!-- Back to top -->
+  <a href="#home" class="back-to-top" id="backToTop">↑</a>
+
+  <script>
+    // === LOADER ===
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 2000);
+    });
+
+    // === NAVBAR SCROLL ===
+    const navbar = document.getElementById('navbar');
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('scrolled');
+        backToTop.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    // === MOBILE MENU ===
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hb = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      hb.classList.toggle('active');
+    }
+
+    // === PARTICLES ===
+    const particlesContainer = document.getElementById('particles');
+    const colors = ['#E2621B', '#FFFFFF', '#1A7A3C'];
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 12) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.opacity = 0.4 + Math.random() * 0.4;
+      particlesContainer.appendChild(p);
+    }
+
+    // === SCROLL REVEAL ===
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // === FORM SUBMIT ===
+    function handleSubmit() {
+      const btn = document.querySelector('.form-submit');
+      btn.textContent = '✓ Message envoyé !';
+      btn.style.background = '#1A7A3C';
+      setTimeout(() => {
+        btn.textContent = '✦ Envoyer ma demande';
+        btn.style.background = '';
+      }, 3000);
+    }
+
+    // === ACTIVE NAV LINK ===
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        const top = s.offsetTop - 100;
+        if (window.scrollY >= top) current = s.getAttribute('id');
+      });
+      navLinks.forEach(a => {
+        a.style.color = '';
+        if (a.getAttribute('href') === '#' + current) {
+          a.style.color = 'var(--orange-light)';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
