@@ -596,12 +596,20 @@
     .service-card.green-card .service-desc { color: rgba(255,255,255,0.8); }
     .service-card.green-card::before { background: rgba(255,255,255,0.3); }
     .service-number {
-      font-family: var(--font-display);
-      font-size: 3rem; font-weight: 700;
-      color: rgba(0,0,0,0.06);
-      line-height: 1;
+      font-family: var(--font-display); 
+      font-size: 3rem; font-weight: 700; 
+      color: rgba(0,0,0,0.15); 
+      line-height: 1; 
       margin-bottom: 20px;
     }
+    .service-card.gradient-card {
+    background: linear-gradient(135deg, var(--green) 0%, var(--orange) 100%);
+    color: white;
+}
+.service-card.gradient-card .service-number { color: rgba(255,255,255,0.2); }
+.service-card.gradient-card .service-title { color: white; }
+.service-card.gradient-card .service-desc { color: rgba(255,255,255,0.85); }
+.service-card.gradient-card::before { background: rgba(255,255,255,0.3); }
     .service-icon {
       font-size: 2.2rem; margin-bottom: 16px;
       display: block;
