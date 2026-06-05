@@ -201,12 +201,13 @@
     /* ============================
        HERO SECTION
     ============================ */
-    .hero {
-      position: relative; min-height: 100vh;
-      display: flex; align-items: center;
-      overflow: hidden;
-      background: var(--black);
-    }
+      .hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+  background: var(--black);
+  padding-bottom: 0;
+}
     .hero-bg {
       position: absolute; inset: 0;
       background: 
@@ -1116,11 +1117,12 @@
       .gallery-item:nth-child(6) { grid-column: auto; grid-row: auto; height: 200px; }
     }
 
-    @media (max-width: 768px) {
+        @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .hero-stats { display: none; }
       .scroll-indicator { display: none; }
+      .hero-content { padding-bottom: 60px; }
       .about-features { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: 1fr; }
       .services-header { flex-direction: column; }
