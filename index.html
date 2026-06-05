@@ -443,12 +443,24 @@
     /* ============================
        ABOUT SECTION
     ============================ */
-    .about {
-      background: var(--black);
-      padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-    }
+      .about {
+  background: var(--black);
+  padding: clamp(80px, 10vw, 140px) clamp(30px, 8vw, 120px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+
+@media (max-width: 1024px) {
+  .about {
+    padding-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding-top: 24px;
+  }
+}
     .about-visual {
       position: relative;
     }
