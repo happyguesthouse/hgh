@@ -255,11 +255,10 @@
     .tricolor-bar span:nth-child(2) { background: var(--white); }
     .tricolor-bar span:nth-child(3) { background: var(--green); }
 
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 0 clamp(30px, 8vw, 140px);
-      max-width: 900px;
-      padding-top: 100px;
+      .hero-content {
+  position: relative; z-index: 2;
+  padding: 100px clamp(30px, 8vw, 140px) 120px;
+  max-width: 900px;
     }
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 12px;
@@ -593,13 +592,25 @@
     .service-card.green-card .service-title { color: white; }
     .service-card.green-card .service-desc { color: rgba(255,255,255,0.8); }
     .service-card.green-card::before { background: rgba(255,255,255,0.3); }
-    .service-number {
-      font-family: var(--font-display); 
-      font-size: 3rem; font-weight: 700; 
-      color: rgba(0,0,0,0.15); 
-      line-height: 1; 
-      margin-bottom: 20px;
-    }
+       .service-number {
+  font-family: var(--font-display);
+  font-size: 3rem; font-weight: 700;
+  color: rgba(0,0,0,0.10);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.service-card.featured .service-number,
+.service-card.green-card .service-number,
+.service-card.gradient-card .service-number {
+  color: rgba(255,255,255,0.25);
+}
+.service-card.gradient-card {
+  background: linear-gradient(135deg, var(--green-dark), var(--orange));
+  color: white;
+}
+.service-card.gradient-card .service-title { color: white; }
+.service-card.gradient-card .service-desc { color: rgba(255,255,255,0.85); }
+.service-card.gradient-card::before { background: rgba(255,255,255,0.3); }
     .service-card.gradient-card {
     background: linear-gradient(135deg, var(--green) 0%, var(--orange) 100%);
     color: white;
@@ -1160,8 +1171,8 @@
         <span class="hero-eyebrow-text">Votre maison d'hôtes à Abomey-Calavi</span>
       </div>
        <h1 class="hero-title">
-     Happy Guest <span style="color: var(--green); font-style: normal;">House</span>
-       </h1>
+  Happy <span class="italic">Guest</span> <span class="house">House</span>
+      </h1>
       <p class="hero-desc">
         Un havre de paix et de confort au cœur de Sèmè, Abomey-Calavi. 
         Découvrez une expérience inoubliable alliant élégance, hospitalité 
@@ -1308,7 +1319,7 @@
         <h3 class="service-title">Bar</h3>
         <p class="service-desc">Notre bar vous propose une sélection de boissons locales et internationales, cocktails raffinés et ambiance décontractée.</p>
       </div>
-      <div class="service-card reveal reveal-delay-5">
+      <div class="service-card gradient-card reveal reveal-delay-5">
         <div class="service-number">05</div>
         <span class="service-icon">🍽️</span>
         <h3 class="service-title">Restaurant</h3>
