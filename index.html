@@ -1211,8 +1211,37 @@ body {
 .hero-title .house {
   font-style: normal;
 }
-    .hero-title .house {
-  font-style: normal;
+    /* Correction débordement section contact sur mobile */
+@media (max-width: 768px) {
+  .contact {
+    padding: 60px 20px !important;
+    overflow-x: hidden;
+  }
+
+  .contact-info,
+  .contact-form-wrapper,
+  .contact-cards,
+  .contact-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contact-form-wrapper {
+    padding: 28px 20px !important;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
   </style>
 </head>
