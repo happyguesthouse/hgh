@@ -1225,7 +1225,30 @@ body {
     font-size: 0.9rem;
   }
 }
- 
+ /* Rendre la carte cliquable */
+.map-container .map-ring,
+.map-container .map-pin,
+.map-container .map-grid-overlay {
+  pointer-events: none;
+}
+
+.map-embed iframe {
+  pointer-events: auto;
+  z-index: 1;
+}
+    @media (max-width: 550px) {
+  .map-pin-label {
+    font-size: 0.6rem;
+    padding: 4px 8px;
+    white-space: nowrap;
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+  .map-pin-icon {
+    font-size: 2rem;
+  }
+}
+    
   </style>
 </head>
 <body>
