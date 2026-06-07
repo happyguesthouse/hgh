@@ -1163,86 +1163,53 @@
       .gallery-mosaic { grid-template-columns: 1fr; }
       .contact-form-wrapper { padding: 28px 20px; }
     }
-      /* Uniformisation fond sombre sur toutes les sections */
-.services,
-.tarifs,
-.contact,
-.contact-form-wrapper {
-  background: var(--black) !important;
+     /* Correction : suppression de la bande blanche sur tout le site */
+body {
+  background: var(--black);
 }
 
-/* Texte des sections devenues sombres */
-.services .section-title,
-.services .service-title,
-.services .service-desc,
-.tarifs .section-title,
-.tarifs p,
-.tarif-name,
-.tarif-features li,
-.contact .section-title,
-.contact-info p,
-.contact-card p,
-.contact-card h4,
-.form-title,
-.form-subtitle,
-.form-group label {
-  color: white !important;
+/* Centrage et pleine largeur sur mobile */
+@media (max-width: 768px) {
+  .hero-content {
+    text-align: center;
+    padding: 80px 20px 60px !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-title {
+    align-items: center !important;
+    text-align: center;
+  }
+  
+  .hero-title span {
+    white-space: normal !important;
+  }
+  
+  .hero-desc {
+    text-align: center;
+    margin: 0 auto 30px auto;
+  }
+  
+  .hero-actions {
+    justify-content: center;
+  }
+  
+  body, html {
+    overflow-x: hidden;
+  }
+  
+  .hero, .about, .services, .gallery, .tarifs, .localisation, .contact, footer {
+    width: 100%;
+    overflow-x: hidden;
+  }
 }
 
-/* Ajustements spécifiques */
-.services-header p,
-.tarifs > p {
-  color: rgba(255,255,255,0.7) !important;
-}
-
-.tarif-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-
-.tarif-card .tarif-price,
-.tarif-card .tarif-price span {
-  color: var(--orange-light) !important;
-}
-
-.tarif-features li {
-  border-bottom-color: rgba(255,255,255,0.1);
-}
-
-.contact-form-wrapper {
-  background: rgba(255,255,255,0.05) !important;
-  backdrop-filter: blur(4px);
-}
-
-.contact-card {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.1);
-}
-
-.contact-card h4 {
-  color: rgba(255,255,255,0.5) !important;
-}
-
-.contact-card p {
-  color: white !important;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.2);
-  color: white;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: rgba(255,255,255,0.5);
-}
-
-.form-submit {
-  background: var(--orange);
-  color: white;
+/* Tiret non italique */
+.hero-title .house {
+  font-style: normal;
 }
     .hero-title .house {
   font-style: normal;
