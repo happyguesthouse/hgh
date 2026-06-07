@@ -1206,50 +1206,26 @@ body {
     overflow-x: hidden;
   }
 }
-
-/* Tiret non italique */
-.hero-title .house {
-  font-style: normal;
-}
-    /* Correction débordement section contact sur mobile */
-@media (max-width: 768px) {
-  .contact {
-    padding: 60px 20px !important;
-    overflow-x: hidden;
+  /* Correction affichage email sur mobile */
+@media (max-width: 550px) {
+  .contact-card p {
+    font-size: 0.7rem !important;
+    white-space: normal !important;
+    word-break: keep-all;
   }
-
-  .contact-info,
-  .contact-form-wrapper,
-  .contact-cards,
+  
   .contact-card {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+    padding: 12px 12px !important;
+    gap: 8px;
   }
-
-  .contact-form-wrapper {
-    padding: 28px 20px !important;
+  
+  .contact-card-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
   }
-
-  .form-row {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%;
-    box-sizing: border-box;
-  }
-}  
-    .contact {
-  overflow-x: hidden;
 }
-.contact > div {
-  max-width: 100%;
-  overflow-x: hidden;
-}
+ 
   </style>
 </head>
 <body>
